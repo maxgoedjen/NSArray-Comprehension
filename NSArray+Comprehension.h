@@ -10,5 +10,6 @@
 @interface NSArray (Comprehension)
 
 - (NSArray *)arrayWithComprehension:(id(^)(id obj))comp;
+- (NSArray *)arrayWithComprehension:(id(^)(id obj))comp ifCondition:(BOOL(^)(id obj))condition;
 
 @end
