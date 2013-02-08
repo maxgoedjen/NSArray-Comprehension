@@ -10,10 +10,18 @@
 @implementation NSArray (Comprehension)
 
 - (NSArray *)arrayWithComprehension:(id(^)(id obj))comp {
+    return [self arrayWithComprehension:comp ifCondition:^BOOL(id obj) {
+        return YES;
+    }];
+}
+
+- (NSArray *)arrayWithComprehension:(id(^)(id obj))comp ifCondition:(BOOL(^)(id obj))condition {
     NSMutableArray *arr = [NSMutableArray array];
     for (id obj in self) {
-        id comprehended = comp(obj);
-        [arr addObject:comprehended];
+        if (condition(obj)) {
+            id comprehended = comp(obj);
+            [arr addObject:comprehended];
+        }
     }
     return arr;
 }
